@@ -11,8 +11,15 @@
       const WELCOME_MESSAGE =
         "Welcome to the Mystic Age Guesser! Please enter your name to begin.";
       let userName = prompt(WELCOME_MESSAGE);
-      while (!userName) {
+      if (userName === null) {
+        throw new Error("Prompt canceled");
+      }
+
+      while (userName === "") {
         userName = prompt(WELCOME_MESSAGE);
+        if (userName === null) {
+          throw new Error("Prompt canceled");
+        }
       }
 
       alert(
@@ -24,6 +31,12 @@
       let didGuessCorrectly = false;
 
       while (didGuessCorrectly === false) {
+        if (lowerAgeBoundary > upperAgeBoundary) {
+          alert(
+            `Hey ${userName}, it seems like there's some magic disturbance...Refresh the page to play again.`
+          );
+        }
+
         let guess = Math.floor((lowerAgeBoundary + upperAgeBoundary) / 2);
 
         let userResponseToGuess = null;
@@ -50,7 +63,7 @@
           // older
           if (userResponseToOlderYounger === "1") {
             lowerAgeBoundary = guess + 1;
-          } else if (userResponseToOlderYounger === "2") {
+          } else {
             upperAgeBoundary = guess - 1;
           }
         }
