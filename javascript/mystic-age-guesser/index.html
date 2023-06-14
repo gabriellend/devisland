@@ -11,10 +11,52 @@
       const WELCOME_MESSAGE =
         "Welcome to the Mystic Age Guesser! Please enter your name to begin.";
       let userName = prompt(WELCOME_MESSAGE);
+      while (!userName) {
+        userName = prompt(WELCOME_MESSAGE);
+      }
 
       alert(
-        `Hey ${userName}! Let's play a game. I have mystical powers to guess your age in under seven attempts`
+        `Hey ${userName}! Let's play a game. I have mystical powers to guess your age in under seven attempts.`
       );
+
+      let lowerAgeBoundary = 1;
+      let upperAgeBoundary = 122;
+      let didGuessCorrectly = false;
+
+      while (didGuessCorrectly === false) {
+        let guess = Math.floor((lowerAgeBoundary + upperAgeBoundary) / 2);
+
+        let userResponseToGuess = null;
+        while (userResponseToGuess !== "y" && userResponseToGuess !== "n") {
+          userResponseToGuess = prompt(
+            `Is your age ${guess}? Please enter y for yes or n for no`
+          );
+        }
+
+        didGuessCorrectly = userResponseToGuess === "y";
+        if (didGuessCorrectly === false) {
+          let userResponseToOlderYounger = null;
+
+          // 1: older, 2: younger
+          while (
+            userResponseToOlderYounger !== "1" &&
+            userResponseToOlderYounger !== "2"
+          ) {
+            userResponseToOlderYounger = prompt(
+              `Are you older or younger than ${guess}? Enter 1 for older or 2 for younger.`
+            );
+          }
+
+          // older
+          if (userResponseToOlderYounger === "1") {
+            lowerAgeBoundary = guess + 1;
+          } else if (userResponseToOlderYounger === "2") {
+            upperAgeBoundary = guess - 1;
+          }
+        }
+      }
+
+      alert("Please refresh the page to play again!");
     </script>
   </body>
 </html>
