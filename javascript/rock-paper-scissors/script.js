@@ -66,20 +66,10 @@ const capitalize = (string) => {
 };
 
 const logStats = (playerWins, computerWins, ties) => {
-  // e.g. ${playerWins === 0 || playerWins > 1 ? "s" : ""} adds an "s" to the
-  // end of the word "time" if the number requires it
   console.log("Stats:");
-  console.log(
-    `You won ${playerWins} time${
-      playerWins === 0 || playerWins > 1 ? "s" : ""
-    }.`
-  );
-  console.log(
-    `You lost ${computerWins} time${
-      computerWins === 0 || computerWins > 1 ? "s" : ""
-    }.`
-  );
-  console.log(`You tied ${ties} time${ties === 0 || ties > 1 ? "s" : ""}.`);
+  console.log(`You won ${playerWins} time${playerWins === 1 ? "" : "s"}.`);
+  console.log(`You lost ${computerWins} time${computerWins === 1 ? "" : "s"}.`);
+  console.log(`You tied ${ties} time${ties === 1 ? "" : "s"}.`);
 };
 
 const game = () => {
