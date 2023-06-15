@@ -8,6 +8,7 @@ const PLAYER_WINS = "Player wins";
 const COMPUTER_WINS = "Computer wins";
 const TIE = "Tie";
 const START_ROUND_MESSAGE = "Rock, paper, or scissors? Enter r, p, or s.";
+const PLAY_AGAIN_MESSAGE = "Refresh the page to play again!";
 
 const getComputerChoice = () => {
   const choices = [ROCK, PAPER, SCISSORS];
@@ -64,6 +65,21 @@ const capitalize = (string) => {
   return titleCase;
 };
 
+const logStats = (playerWins, computerWins, ties) => {
+  console.log("Stats:");
+  console.log(
+    `You won ${playerWins} time${
+      playerWins === 0 || playerWins > 1 ? "s" : ""
+    }.`
+  );
+  console.log(
+    `You lost ${computerWins} time${
+      computerWins === 0 || computerWins > 1 ? "s" : ""
+    }.`
+  );
+  console.log(`You tied ${ties} time${ties === 0 || ties > 1 ? "s" : ""}.`);
+};
+
 const game = () => {
   let round = 1;
   let computerWins = 0;
@@ -104,17 +120,17 @@ const game = () => {
   }
 
   if (computerWins > playerWins) {
-    console.log("Sorry, the computer wins!");
-    console.log(`You won ${playerWins} time${playerWins > 1 ? "s" : ""}.`);
-    console.log(`You lost ${computerWins} time${computerWins > 1 ? "s" : ""}.`);
-    console.log(`You tied ${ties} time${ties > 1 ? "s" : ""}.`);
+    console.log("-----------------");
+    console.log(`Sorry, the computer wins! ${PLAY_AGAIN_MESSAGE}`);
+    logStats(playerWins, computerWins, ties);
   } else if (playerWins > computerWins) {
-    console.log("Congratulations! You win!");
-    console.log(`You won ${playerWins} time${playerWins > 1 ? "s" : ""}.`);
-    console.log(`You lost ${computerWins} time${computerWins > 1 ? "s" : ""}.`);
-    console.log(`You tied ${ties} time${ties > 1 ? "s" : ""}.`);
+    console.log("-----------------");
+    console.log(`Congratulations, you win! ${PLAY_AGAIN_MESSAGE}`);
+    logStats(playerWins, computerWins, ties);
   } else {
-    console.log("It's a tie! Refresh the page to play again!");
+    console.log("-----------------");
+    console.log(`It's a tie! ${PLAY_AGAIN_MESSAGE}`);
+    logStats(playerWins, computerWins, ties);
   }
 };
 
