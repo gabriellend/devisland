@@ -66,6 +66,8 @@ const capitalize = (string) => {
 };
 
 const logStats = (playerWins, computerWins, ties) => {
+  // e.g. ${playerWins === 0 || playerWins > 1 ? "s" : ""} adds an "s" to the
+  // end of the word "time" if the number requires it
   console.log("Stats:");
   console.log(
     `You won ${playerWins} time${
