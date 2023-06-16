@@ -12,8 +12,7 @@ const PLAY_AGAIN_MESSAGE = "Refresh the page to play again!";
 
 const getComputerChoice = () => {
   const choices = [ROCK, PAPER, SCISSORS];
-  const randomIndex =
-    Math.floor(Math.random() * choices.length) % choices.length; // This ensures the randomIndex will be 0, 1, or 2
+  const randomIndex = Math.floor(Math.random() * choices.length);
 
   return choices[randomIndex];
 };
