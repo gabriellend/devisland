@@ -8,19 +8,25 @@
   </head>
   <body>
     <script>
-      const WELCOME_MESSAGE =
-        "Welcome to the Mystic Age Guesser! Please enter your name to begin.";
-      let userName = prompt(WELCOME_MESSAGE);
-      if (userName === null) {
-        throw new Error("Prompt canceled");
+      function promptUserforName() {
+        const WELCOME_MESSAGE =
+          "Welcome to the Mystic Age Guesser! Please enter your name to begin.";
+        let userName = prompt(WELCOME_MESSAGE);
+        if (userName === null) {
+          return;
+        }
+
+        while (userName === "") {
+          userName = prompt(WELCOME_MESSAGE);
+          if (userName === null) {
+            return;
+          }
+        }
+
+        return userName;
       }
 
-      while (userName === "") {
-        userName = prompt(WELCOME_MESSAGE);
-        if (userName === null) {
-          throw new Error("Prompt canceled");
-        }
-      }
+      const userName = promptUserForName();
 
       alert(
         `Hey ${userName}! Let's play a game. I have mystical powers to guess your age in under seven attempts.`
