@@ -4,9 +4,11 @@ const P = "p";
 const ROCK = "rock";
 const PAPER = "paper";
 const SCISSORS = "scissors";
-const PLAYER_WINS = "Player wins";
-const COMPUTER_WINS = "Computer wins";
-const TIE = "Tie";
+const PLAYER = "player";
+const COMPUTER = "computer";
+const PLAYER_WINS = "player wins";
+const COMPUTER_WINS = "computer wins";
+const TIE = "tie";
 const START_ROUND_MESSAGE = "Rock, paper, or scissors? Enter r, p, or s.";
 const PLAY_AGAIN_MESSAGE = "Refresh the page to play again!";
 
@@ -17,8 +19,25 @@ const getComputerChoice = () => {
   return choices[randomIndex];
 };
 
-const playRound = (playerSelection, computerSelection) => {
-  // edges cases
+const getPlayerChoice = () => {
+  let choice = prompt(START_ROUND_MESSAGE).toLowerCase();
+  // Game canceled
+  if (choice === null) {
+    return;
+  }
+
+  while (choice !== R && choice !== S && choice !== P) {
+    choice = prompt(START_ROUND_MESSAGE).toLowerCase();
+    // Game canceled
+    if (choice === null) {
+      return;
+    }
+  }
+
+  return convertChoiceToWord(choice);
+};
+
+const duel = (playerSelection, computerSelection) => {
   const playerWins =
     (playerSelection === ROCK && computerSelection === SCISSORS) ||
     (playerSelection === PAPER && computerSelection === ROCK) ||
@@ -29,11 +48,24 @@ const playRound = (playerSelection, computerSelection) => {
     (computerSelection === SCISSORS && playerSelection === PAPER);
 
   if (playerWins) {
+    return PLAYER;
+  } else if (computerWins) {
+    return COMPUTER;
+  } else {
+    return "No winner";
+  }
+};
+
+const playRound = (playerSelection, computerSelection) => {
+  // edges cases
+  let winner = duel(playerSelection, computerSelection);
+
+  if (winner === PLAYER) {
     console.log(
       `You win! ${capitalize(playerSelection)} beats ${computerSelection}!`
     );
     return PLAYER_WINS;
-  } else if (computerWins) {
+  } else if (winner === COMPUTER) {
     console.log(
       `You lose! ${capitalize(computerSelection)} beats ${playerSelection}!`
     );
@@ -79,23 +111,9 @@ const game = () => {
 
   while (round <= 5) {
     let computerChoice = getComputerChoice();
-    let playerChoice = prompt(START_ROUND_MESSAGE);
-    // Game canceled
-    if (playerChoice === null) {
-      return;
-    }
-
-    playerChoice = playerChoice.toLowerCase();
-    while (playerChoice !== R && playerChoice !== S && playerChoice !== P) {
-      playerChoice = prompt(START_ROUND_MESSAGE);
-      // Game canceled
-      if (playerChoice === null) {
-        return;
-      }
-    }
-
-    playerChoice = convertChoiceToWord(playerChoice);
+    let playerChoice = getPlayerChoice();
     let outcome = playRound(playerChoice, computerChoice);
+
     switch (outcome) {
       case PLAYER_WINS:
         playerWins++;
