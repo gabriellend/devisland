@@ -4,8 +4,6 @@ const P = "p";
 const ROCK = "rock";
 const PAPER = "paper";
 const SCISSORS = "scissors";
-const PLAYER = "player";
-const COMPUTER = "computer";
 const PLAYER_WINS = "player wins";
 const COMPUTER_WINS = "computer wins";
 const TIE = "tie";
@@ -37,7 +35,7 @@ const getPlayerChoice = () => {
   return convertChoiceToWord(choice);
 };
 
-const duel = (playerSelection, computerSelection) => {
+const playRound = (playerSelection, computerSelection) => {
   const playerWins =
     (playerSelection === ROCK && computerSelection === SCISSORS) ||
     (playerSelection === PAPER && computerSelection === ROCK) ||
@@ -48,24 +46,11 @@ const duel = (playerSelection, computerSelection) => {
     (computerSelection === SCISSORS && playerSelection === PAPER);
 
   if (playerWins) {
-    return PLAYER;
-  } else if (computerWins) {
-    return COMPUTER;
-  } else {
-    return "No winner";
-  }
-};
-
-const playRound = (playerSelection, computerSelection) => {
-  // edges cases
-  let winner = duel(playerSelection, computerSelection);
-
-  if (winner === PLAYER) {
     console.log(
       `You win! ${capitalize(playerSelection)} beats ${computerSelection}!`
     );
     return PLAYER_WINS;
-  } else if (winner === COMPUTER) {
+  } else if (computerWins) {
     console.log(
       `You lose! ${capitalize(computerSelection)} beats ${playerSelection}!`
     );
