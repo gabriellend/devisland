@@ -7,6 +7,7 @@ const SCISSORS = "scissors";
 const PLAYER_WINS = "player wins";
 const COMPUTER_WINS = "computer wins";
 const TIE = "tie";
+// r, p, and s are easier for players to enter than "rock", "paper", "scissors"
 const START_ROUND_MESSAGE = "Rock, paper, or scissors? Enter r, p, or s.";
 const PLAY_AGAIN_MESSAGE = "Refresh the page to play again!";
 
