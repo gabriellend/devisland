@@ -6,7 +6,7 @@
 // IOCE
 // I - input(s) – What is going into the function? i.e. What are the arguments? What types are they?
 // O - output - What's coming out of the function? i.e. What is the function returning? What is the type?
-// C - constraints – limitations, i.e. memory, scalability, etc.
+// C - constraints – limitations, i.e. memory, scalability, etc. IGNORE FOR NOW
 // E – Edge cases - unexpected inputs, error handling, etc.
 
 // I - none
@@ -36,5 +36,21 @@ const getComputerChoice = () => {
   }
 };
 
+// I - playerSelection and computerSelection, strings
+// O - a string declaring win, lose, or tie
+// C - skip
+// E - case of playerSelection, player inputing nothing/something unexpected
+const playRound = (playerSelection, computerSelection) => {
+  playerSelection = playerSelection.toLowerCase();
+
+  const playerWins =
+    (playerSelection === "rock" && computerSelection === "scissors") ||
+    (playerSelection === "scissors" && computerSelection === "paper") ||
+    (playerSelection === "paper" && computerSelection === "rock");
+  const computerWins =
+    (computerSelection === "rock" && playerSelection === "scissors") ||
+    (computerSelection === "scissors" && playerSelection === "paper") ||
+    (computerSelection === "paper" && playerSelection === "rock");
+};
+
 let computerChoice = getComputerChoice();
-console.log({ computerChoice });
