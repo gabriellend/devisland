@@ -1,56 +1,134 @@
-// We need to player rock paper scissors five times
-// At the end we need to report a winner
-// rock, paper, scissors
-// handle winning, losing, and tieing
+// ELEMENT SELECTORS
+const buttons = document.querySelectorAll("button");
+const roundResult = document.querySelector(".round-result h2");
+const scoreLabels = document.querySelectorAll(".score-label");
+const scores = document.querySelectorAll(".score");
+const banner = document.querySelector("h1");
 
-// IOCE
-// I - input(s) – What is going into the function? i.e. What are the arguments? What types are they?
-// O - output - What's coming out of the function? i.e. What is the function returning? What is the type?
-// C - constraints – limitations, i.e. memory, scalability, etc. IGNORE FOR NOW
-// E – Edge cases - unexpected inputs, error handling, etc.
+// VARIABLES
+const ROCK = "rock";
+const PAPER = "paper";
+const SCISSORS = "scissors";
+const PLAYER_WINS = "Player wins";
+const COMPUTER_WINS = "Computer wins";
 
-// I - none
-// O - return one of three strings – "Rock", "Paper", or "Scissors"
-// C – skip
-// E – none
+let playerScore = 0;
+let computerScore = 0;
 
+// FUNCTIONS
 const getComputerChoice = () => {
-  const randNum = Math.ceil(Math.random() * 3);
+  const choices = [ROCK, PAPER, SCISSORS];
+  const randIndex = Math.ceil(Math.random() * 3);
 
-  //   if (randNum === 1) {
-  //     return "Rock";
-  //   } else if (randNum === 2) {
-  //     return "Scissors";
-  //   } else {
-  //     return "Paper";
-  //   }
+  return choices[randIndex];
+};
 
-  switch (randNum) {
-    case 1:
-      return "Rock";
-    case 2:
-      return "Paper";
-    case 3:
-    default:
-      return "Scissors";
+const updateScoreElements = (score, playerScoreText, computerScoreText) => {
+  score.innerText = "";
+
+  if (score.className.includes("player-score")) {
+    score.appendChild(playerScoreText);
+  } else if (score.className.includes("computer-score")) {
+    score.appendChild(computerScoreText);
   }
 };
 
-// I - playerSelection and computerSelection, strings
-// O - a string declaring win, lose, or tie
-// C - skip
-// E - case of playerSelection, player inputing nothing/something unexpected
+const showScores = (playerScore, computerScore) => {
+  const playerScoreText = document.createTextNode(" " + playerScore);
+  const computerScoreText = document.createTextNode(" " + computerScore);
+
+  scores.forEach((score) =>
+    updateScoreElements(score, playerScoreText, computerScoreText)
+  );
+
+  scoreLabels.forEach((label) => {
+    label.style.display = "inline-block";
+  });
+};
+
+const showRoundResult = (result) => {
+  roundResult.innerText = result;
+};
+
+const showGameResult = (result) => {
+  banner.innerText = result;
+};
+
 const playRound = (playerSelection, computerSelection) => {
   playerSelection = playerSelection.toLowerCase();
 
   const playerWins =
-    (playerSelection === "rock" && computerSelection === "scissors") ||
-    (playerSelection === "scissors" && computerSelection === "paper") ||
-    (playerSelection === "paper" && computerSelection === "rock");
+    (playerSelection === ROCK && computerSelection === SCISSORS) ||
+    (playerSelection === PAPER && computerSelection === ROCK) ||
+    (playerSelection === SCISSORS && computerSelection === PAPER);
   const computerWins =
-    (computerSelection === "rock" && playerSelection === "scissors") ||
-    (computerSelection === "scissors" && playerSelection === "paper") ||
-    (computerSelection === "paper" && playerSelection === "rock");
+    (playerSelection === SCISSORS && computerSelection === ROCK) ||
+    (playerSelection === ROCK && computerSelection === PAPER) ||
+    (playerSelection === PAPER && computerSelection === SCISSORS);
+
+  let resultMessage;
+  let result;
+  if (playerWins) {
+    resultMessage = `You chose ${playerSelection} and the computer chose ${computerSelection}, you win!`;
+    result = PLAYER_WINS;
+  } else if (computerWins) {
+    resultMessage = `You chose ${playerSelection} and the computer chose ${computerSelection}, you lose!`;
+    result = COMPUTER_WINS;
+  } else {
+    resultMessage = `You both chose ${playerSelection}, it's a tie!`;
+    result = "Tie";
+  }
+
+  showRoundResult(resultMessage);
+  return result;
 };
 
-let computerChoice = getComputerChoice();
+const clearScreen = () => {
+  roundResult.textContent = "";
+  banner.textContent = "";
+  scoreLabels.forEach((label) => {
+    label.style.display = "none";
+  });
+  buttons.forEach((button) => {
+    button.disabled = true;
+    button.style.display = "none";
+  });
+};
+
+const handleGameOver = (playerScore, computerScore) => {
+  clearScreen();
+
+  let resultMessage;
+  if (playerScore === 5 && computerScore < 5) {
+    resultMessage = "You win the game! Refresh to play again!";
+  } else if (computerScore === 5 && playerScore < 5) {
+    resultMessage = "You lose the game! Refresh to play again!";
+  } else {
+    resultMessage = "It's a tie! Refresh to play again!";
+  }
+
+  showGameResult(resultMessage);
+};
+
+const game = (e) => {
+  roundResult.textContent = "";
+
+  let computerChoice = getComputerChoice();
+  let playerChoice = e.target.innerText;
+
+  let outcome = playRound(playerChoice, computerChoice);
+  if (outcome === PLAYER_WINS) {
+    playerScore++;
+  } else if (outcome === COMPUTER_WINS) {
+    computerScore++;
+  }
+
+  showScores(playerScore, computerScore);
+
+  if (playerScore === 5 || computerScore === 5) {
+    handleGameOver(playerScore, computerScore);
+  }
+};
+
+// EVENT LISTENERS
+buttons.forEach((button) => button.addEventListener("click", game));

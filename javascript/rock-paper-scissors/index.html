@@ -4,8 +4,31 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Rock Paper Scissors</title>
+    <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
+    <h1>
+      Let's play Rock, Paper, Scissors. First to 5 points wins.<br />Make a
+      selction to start:
+    </h1>
+    <div class="button-div">
+      <button class="rock">Rock</button>
+      <button class="paper">Paper</button>
+      <button class="scissors">Scissors</button>
+    </div>
+    <div class="round-result">
+      <h2></h2>
+    </div>
+    <div class="scores">
+      <!-- score-label starts out with display: none and appears once there is a score to show -->
+      <h3 class="score-label">
+        Your Score:<span class="player-score score"></span>
+      </h3>
+      <h3 class="score-label">
+        Computer Score:<span class="computer-score score"></span>
+      </h3>
+    </div>
     <script src="script.js"></script>
   </body>
 </html>
+

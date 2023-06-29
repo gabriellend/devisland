@@ -1,0 +1,73 @@
+html,
+body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  text-align: center;
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+}
+
+h1 {
+  margin: 5% 3% 3% 3%;
+}
+
+.button-div {
+  display: flex;
+  justify-content: space-between;
+  min-width: 50%;
+  margin: auto;
+  margin-bottom: 3%;
+  gap: 10px;
+}
+
+button {
+  background-color: white;
+  color: black;
+  padding: 16px 32px;
+  font-size: 16px;
+  margin: 4px 2px;
+  transition-duration: 0.4s;
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.rock {
+  border: 2px solid lightseagreen;
+}
+
+.rock:hover {
+  background-color: lightseagreen;
+  color: white;
+}
+
+.paper {
+  border: 2px solid goldenrod;
+}
+
+.paper:hover {
+  background-color: goldenrod;
+}
+
+.scissors {
+  border: 2px solid lightcoral;
+}
+
+.scissors:hover {
+  background-color: lightcoral;
+}
+
+.round-result {
+  margin: 0 3% 3% 3%;
+}
+.scores {
+  display: flex;
+  justify-content: space-around;
+  min-width: 50%;
+  gap: 40px;
+  margin: auto;
+}
+.score-label {
+  display: none;
+}
